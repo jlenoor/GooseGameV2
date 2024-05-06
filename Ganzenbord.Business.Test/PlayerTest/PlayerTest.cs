@@ -1,7 +1,7 @@
 using Ganzenbord.Business.Factories;
 using Ganzenbord.Business.Player;
 
-namespace Ganzenbord.Business.Test
+namespace Ganzenbord.Business.Test.PlayerTest
 {
     public class Tests
     {
