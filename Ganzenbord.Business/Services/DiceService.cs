@@ -8,15 +8,15 @@
             return random.Next(1, maxSides + 1);
         }
 
-        public int[] RollTheDices(int amount = 2)
+        public int RollDice1()
         {
-            var result = new int[amount];
+            var result = RollDice();
+            return result;
+        }
 
-            for (int i = 0; i < amount; i++)
-            {
-                result[i] = RollDice();
-            }
-
+        public int RollDice2()
+        {
+            var result = RollDice();
             return result;
         }
     }

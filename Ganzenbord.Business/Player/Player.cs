@@ -17,20 +17,20 @@ namespace Ganzenbord.Business.Player
         public int NeedsToSkip { get; set; }
         public bool IsStuck { get; private set; }
 
-        public void PlayerPlayATurn()
+        public void PlayerPlayATurn(DiceService dice)
         {
-            
-            if (NeedsToSkip < 0) 
+
+            if (NeedsToSkip < 0)
             {
                 NeedsToSkip--;
             }
             else if (IsStuck)
             {
-                GameState.NextPlayer();  
+                GameState.NextPlayer();
             }
             else
             {
-                //Dice.Roll(2);
+                RolledValue += dice.RollDice1() + dice.RollDice2();
                 Move(RolledValue, PreviousPosition);
             }
         }
@@ -39,12 +39,10 @@ namespace Ganzenbord.Business.Player
             RolledValue = rolledDice;
             CurrentPosition = oldPosition + rolledDice;
         }
-
         public void MoveThroughEvents(int destination)
         {
             CurrentPosition += destination;
         }
-
         public void SkipTurn(int wait)
         {
             NeedsToSkip += wait;
