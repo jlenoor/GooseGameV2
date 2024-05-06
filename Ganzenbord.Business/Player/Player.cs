@@ -14,23 +14,46 @@ namespace Ganzenbord.Business.Player
         public int PreviousPosition { get; set; }
         public int RolledValue { get; set; }
         public int NeedsToSkip { get; set; }
+        public bool FirstTurn { get; set; } = true;
         public bool IsStuck { get; set; }
 
-        public void PlayerPlayATurn()
+        public void PlayerPlayATurn(DiceService dice)
         {
-            
-            if (NeedsToSkip < 0) 
+            if (FirstTurn)
             {
-                NeedsToSkip--;
-            }
-            else if (IsStuck)
-            {
-                GameState.NextPlayer();  
+                FirstTurn = false;
+                int roll1 = dice.RollDice1();
+                int roll2 = dice.RollDice2();
+
+                if (roll1 == 5 && roll2 == 4 || roll1 == 4 && roll2 == 5)
+                {
+                    MoveThroughEvents(26);
+                }
+                else if (roll1 == 6 && roll2 == 3 || roll1 == 3 && roll2 == 6)
+                {
+                    MoveThroughEvents(53);
+                }
+                else
+                {
+                    int result = roll1 + roll2;
+                    Move(result, PreviousPosition);
+                }
             }
             else
             {
-                //Dice.Roll(2);
-                Move(RolledValue, PreviousPosition);
+                if (NeedsToSkip < 0)
+                {
+                    NeedsToSkip--;
+                }
+                else if (IsStuck)
+                {
+                    GameState.NextPlayer();
+                }
+                else
+                {
+                    RolledValue += dice.RollDice1() + dice.RollDice2();
+                    Move(RolledValue, PreviousPosition);
+                }
             }
         }
         public void Move(int rolledDice, int oldPosition)
@@ -38,12 +61,10 @@ namespace Ganzenbord.Business.Player
             RolledValue = rolledDice;
             CurrentPosition = oldPosition + rolledDice;
         }
-
         public void MoveThroughEvents(int destination)
         {
             CurrentPosition += destination;
         }
-
         public void SkipTurn(int wait)
         {
             NeedsToSkip += wait;
