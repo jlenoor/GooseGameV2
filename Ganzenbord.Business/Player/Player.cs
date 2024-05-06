@@ -20,5 +20,9 @@
             CurrentPosition = oldPosition + rolledDice;
         }
 
+        public void MoveThroughEvents(int destination)
+        {
+            CurrentPosition = PreviousPosition + destination;
+        }
     }
 }
