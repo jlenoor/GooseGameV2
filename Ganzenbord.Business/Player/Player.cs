@@ -9,13 +9,12 @@ namespace Ganzenbord.Business.Player
             Name = name;
             CurrentPosition = 1;
         }
-
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
         public int PreviousPosition { get; set; }
         public int RolledValue { get; set; }
         public int NeedsToSkip { get; set; }
-        public bool IsStuck { get; private set; }
+        public bool IsStuck { get; set; }
 
         public void PlayerPlayATurn()
         {
