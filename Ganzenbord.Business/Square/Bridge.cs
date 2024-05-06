@@ -13,7 +13,7 @@ namespace Ganzenbord.Business.Square
 
         public void HandlePlayer(IPlayer testPlayer)
         {
-            testPlayer.MoveThroughEvents(12);
+            testPlayer.MoveThroughEvents(V);
         }
     }
 }

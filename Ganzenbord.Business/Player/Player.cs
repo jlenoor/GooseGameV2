@@ -48,6 +48,7 @@ namespace Ganzenbord.Business.Player
         public void SkipTurn(int wait)
         {
             NeedsToSkip += wait;
+
         }
     }
 }
