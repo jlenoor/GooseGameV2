@@ -9,5 +9,6 @@
 
         void Move(int rolledDice, int oldPosition);
         void MoveThroughEvents(int destination);
+        void SkipTurn(int wait);
     }
 }
