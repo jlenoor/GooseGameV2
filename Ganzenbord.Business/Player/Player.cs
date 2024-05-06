@@ -22,7 +22,7 @@
 
         public void MoveThroughEvents(int destination)
         {
-            CurrentPosition = PreviousPosition + destination;
+            CurrentPosition = +destination;
         }
     }
 }
