@@ -11,9 +11,9 @@ namespace Ganzenbord.Business.Square
 
         public int GoTo { get; }
 
-        public void HandlePlayer(IPlayer testPlayer)
+        public void HandlePlayer(IPlayer player)
         {
-            testPlayer.MoveThroughEvents(GoTo);
+            player.MoveThroughEvents(GoTo);
         }
     }
 }

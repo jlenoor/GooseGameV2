@@ -1,4 +1,5 @@
-﻿using Ganzenbord.Business.Player;
+﻿using Ganzenbord.Business.Factories.Interfaces;
+using Ganzenbord.Business.Player;
 
 namespace Ganzenbord.Business.Factories
 {
@@ -11,7 +12,7 @@ namespace Ganzenbord.Business.Factories
 
         public IPlayer Create(string name)
         {
-            return new Player.Player(name);
+            return new Player.Player(name.ToString());
         }
     }
 }

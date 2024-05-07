@@ -8,6 +8,8 @@ namespace Ganzenbord.Business.Player
         {
             Name = name;
             CurrentPosition = 1;
+
+            PlayerNames = ["Abdul", "Bart", "Bernd", "Cedric", "Gilles", "Illya", "Jeffrey", "Robin", "Tycho"];
         }
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
@@ -16,6 +18,7 @@ namespace Ganzenbord.Business.Player
         public bool FirstTurn { get; set; } = true;
         public bool IsStuck { get; set; }
         public bool IsWinner { get; set; } = false;
+        public string[] PlayerNames { get; set; }
 
         public void PlayerPlayATurn(DiceService dice)
         {
@@ -55,6 +58,12 @@ namespace Ganzenbord.Business.Player
                     Move(RolledValue);
                 }
             }
+        }
+
+        public void Move(int rolledDice, int currentPosition)
+        {
+            RolledValue = rolledDice;
+            CurrentPosition = CurrentPosition + rolledDice;
         }
         public void Move(int rolledDice)
         {
