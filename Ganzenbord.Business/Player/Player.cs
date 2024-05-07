@@ -11,19 +11,19 @@ namespace Ganzenbord.Business.Player
         }
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
-        public int PreviousPosition { get; set; }
         public int RolledValue { get; set; }
         public int NeedsToSkip { get; set; }
         public bool FirstTurn { get; set; } = true;
         public bool IsStuck { get; set; }
+        public bool IsWinner { get; set; } = false;
 
         public void PlayerPlayATurn(DiceService dice)
         {
             if (FirstTurn)
             {
                 FirstTurn = false;
-                int roll1 = dice.RollDice1();
-                int roll2 = dice.RollDice2();
+                int roll1 = dice.RollDice();
+                int roll2 = dice.RollDice();
 
                 if (roll1 == 5 && roll2 == 4 || roll1 == 4 && roll2 == 5)
                 {
@@ -36,7 +36,7 @@ namespace Ganzenbord.Business.Player
                 else
                 {
                     int result = roll1 + roll2;
-                    Move(result, PreviousPosition);
+                    Move(result);
                 }
             }
             else
@@ -51,19 +51,19 @@ namespace Ganzenbord.Business.Player
                 }
                 else
                 {
-                    RolledValue += dice.RollDice1() + dice.RollDice2();
-                    Move(RolledValue, PreviousPosition);
+                    RolledValue += dice.RollDice(2);
+                    Move(RolledValue);
                 }
             }
         }
-        public void Move(int rolledDice, int oldPosition)
+        public void Move(int rolledDice)
         {
             RolledValue = rolledDice;
-            CurrentPosition = oldPosition + rolledDice;
+            CurrentPosition += rolledDice;
         }
         public void MoveThroughEvents(int destination)
         {
-            CurrentPosition += destination;
+            CurrentPosition = destination;
         }
         public void SkipTurn(int wait)
         {

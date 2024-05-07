@@ -2,18 +2,18 @@
 
 namespace Ganzenbord.Business.Square
 {
-    public class Bridge : ISquare
+    public class Maze : ISquare
     {
-        public Bridge(int id)
+        public Maze(int goTo)
         {
-            Id = id;
+            GoTo = goTo;
         }
 
-        public int Id { get; set; }
+        public int GoTo { get; }
 
         public void HandlePlayer(IPlayer testPlayer)
         {
-            testPlayer.MoveThroughEvents(Id);
+            testPlayer.MoveThroughEvents(GoTo);
         }
     }
 }

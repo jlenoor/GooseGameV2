@@ -2,21 +2,25 @@
 {
     public class DiceService : IDiceService
     {
-        public int RollDice(int maxSides = 6)
+        public int RollDice(int amountDice)
         {
             Random random = new Random();
-            return random.Next(1, maxSides + 1);
-        }
 
-        public int RollDice1()
-        {
-            var result = RollDice();
+            int result = 0;
+
+            for (int i = 0; amountDice <= i; i++)
+            {
+                result += random.Next(1, 7);
+            }
+
             return result;
         }
 
-        public int RollDice2()
+        public int RollDice()
         {
-            var result = RollDice();
+            Random random = new Random();
+            var result = random.Next(1, 7);
+
             return result;
         }
     }
