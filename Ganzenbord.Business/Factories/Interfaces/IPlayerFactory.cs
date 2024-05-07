@@ -1,6 +1,6 @@
 ﻿using Ganzenbord.Business.Player;
 
-namespace Ganzenbord.Business.Factories
+namespace Ganzenbord.Business.Factories.Interfaces
 {
     public interface IPlayerFactory
     {

@@ -1,4 +1,5 @@
 using Ganzenbord.Business.Factories;
+using Ganzenbord.Business.Factories.Interfaces;
 using Ganzenbord.Business.Player;
 
 namespace Ganzenbord.Business.Test.PlayerTest
@@ -14,14 +15,15 @@ namespace Ganzenbord.Business.Test.PlayerTest
         public void WhenPlayerRollsDice_ThenPlayerGoesToSpecificPosition()
         {
             //Arrange
+            int currentPosition = 0;
             int rolledValue = 2;
-            int expectedPosition = 3;
+            int expectedPosition = 2;
 
             IPlayer playerUnderTest = new Player.Player("testName");
 
 
             //Act
-            playerUnderTest.Move(rolledValue);
+            playerUnderTest.Move(rolledValue, currentPosition);
 
             //Assert
             Assert.AreEqual(playerUnderTest.CurrentPosition, expectedPosition);
