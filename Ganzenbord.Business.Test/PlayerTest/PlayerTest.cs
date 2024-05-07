@@ -14,15 +14,14 @@ namespace Ganzenbord.Business.Test.PlayerTest
         public void WhenPlayerRollsDice_ThenPlayerGoesToSpecificPosition()
         {
             //Arrange
-            int currentPosition = 0;
             int rolledValue = 2;
-            int expectedPosition = 2;
+            int expectedPosition = 3;
 
             IPlayer playerUnderTest = new Player.Player("testName");
 
 
             //Act
-            playerUnderTest.Move(rolledValue, currentPosition);
+            playerUnderTest.Move(rolledValue);
 
             //Assert
             Assert.AreEqual(playerUnderTest.CurrentPosition, expectedPosition);

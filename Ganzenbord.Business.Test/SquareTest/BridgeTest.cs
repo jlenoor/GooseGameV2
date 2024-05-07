@@ -10,14 +10,13 @@ namespace Ganzenbord.Business.Test.SquareTest
         {
             //Arrange
             IPlayer testPlayer = new Player.Player("testName"); //TODO: Factory
-            ISquare bridge = new Bridge(6);
+            ISquare bridge = new Bridge(12);
 
             //Act
             bridge.HandlePlayer(testPlayer);
 
             //Assert
             Assert.That(12, Is.EqualTo(testPlayer.CurrentPosition));
-            Assert.That(6, Is.EqualTo(testPlayer.PreviousPosition));
         }
     }
 }
