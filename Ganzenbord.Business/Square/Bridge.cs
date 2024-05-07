@@ -4,16 +4,16 @@ namespace Ganzenbord.Business.Square
 {
     public class Bridge : ISquare
     {
-        public Bridge(int v)
+        public Bridge(int id)
         {
-            V = v;
+            Id = id;
         }
 
-        public int V { get; }
+        public int Id { get; set; }
 
         public void HandlePlayer(IPlayer testPlayer)
         {
-            testPlayer.MoveThroughEvents(V);
+            testPlayer.MoveThroughEvents(Id);
         }
     }
 }

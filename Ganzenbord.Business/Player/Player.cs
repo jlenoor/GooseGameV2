@@ -22,8 +22,8 @@ namespace Ganzenbord.Business.Player
             if (FirstTurn)
             {
                 FirstTurn = false;
-                int roll1 = dice.RollDice1();
-                int roll2 = dice.RollDice2();
+                int roll1 = dice.RollDice();
+                int roll2 = dice.RollDice();
 
                 if (roll1 == 5 && roll2 == 4 || roll1 == 4 && roll2 == 5)
                 {
@@ -51,7 +51,7 @@ namespace Ganzenbord.Business.Player
                 }
                 else
                 {
-                    RolledValue += dice.RollDice1() + dice.RollDice2();
+                    RolledValue += dice.RollDice(2);
                     Move(RolledValue, PreviousPosition);
                 }
             }
@@ -63,7 +63,7 @@ namespace Ganzenbord.Business.Player
         }
         public void MoveThroughEvents(int destination)
         {
-            CurrentPosition += destination;
+            CurrentPosition = destination;
         }
         public void SkipTurn(int wait)
         {

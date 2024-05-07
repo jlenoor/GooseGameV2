@@ -3,7 +3,6 @@
     public interface IDiceService
     {
         int RollDice(int maxSides = 6);
-        int RollDice1();
-        int RollDice2();
+        int RollDice();
     }
 }
