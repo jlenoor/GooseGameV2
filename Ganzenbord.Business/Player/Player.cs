@@ -1,9 +1,12 @@
 ﻿using Ganzenbord.Business.Services;
+using System.Numerics;
+using Ganzenbord.Business.Logger;
 
 namespace Ganzenbord.Business.Player
 {
     public class Player : IPlayer
     {
+        ILogging logger = new Logger.Logger();
         public Player(string name)
         {
             Name = name;
@@ -19,64 +22,45 @@ namespace Ganzenbord.Business.Player
         public bool IsStuck { get; set; }
         public bool IsWinner { get; set; } = false;
         public string[] PlayerNames { get; set; }
+        public bool GoingBackwards { get; set; }
 
-        public void PlayerPlayATurn(DiceService dice)
-        {
-            if (FirstTurn)
-            {
-                FirstTurn = false;
-                int roll1 = dice.RollDice();
-                int roll2 = dice.RollDice();
-
-                if (roll1 == 5 && roll2 == 4 || roll1 == 4 && roll2 == 5)
-                {
-                    MoveThroughEvents(26);
-                }
-                else if (roll1 == 6 && roll2 == 3 || roll1 == 3 && roll2 == 6)
-                {
-                    MoveThroughEvents(53);
-                }
-                else
-                {
-                    int result = roll1 + roll2;
-                    Move(result);
-                }
-            }
-            else
-            {
-                if (NeedsToSkip < 0)
-                {
-                    NeedsToSkip--;
-                }
-                else if (IsStuck)
-                {
-                    GameState.NextPlayer();
-                }
-                else
-                {
-                    RolledValue += dice.RollDice(2);
-                    Move(RolledValue);
-                }
-            }
-        }
 
         public void Move(int rolledDice, int currentPosition)
         {
             RolledValue = rolledDice;
-            CurrentPosition = CurrentPosition + rolledDice;
+            CurrentPosition += rolledDice;
         }
         public void Move(int rolledDice)
         {
             RolledValue = rolledDice;
-            CurrentPosition += rolledDice;
+            if (GoingBackwards)
+            {
+                int rest = (CurrentPosition + rolledDice); //60 rollen 12 //60 rollen 8
+                rest -= 63; //9 //5
+                CurrentPosition -= rest*2; //60-18 = 42 //60-10 = 50
+                logger.Log("Bij het knippen en plakken ging er iets verkeerd. ");
+            }
+            if (CurrentPosition + rolledDice > 63)
+            {
+                GoingBackwards = true;
+                int rest =(CurrentPosition + rolledDice) - 63;
+                CurrentPosition -= rest;
+                logger.Log("Je dacht dat je bijna klaar was, maar bent vergeten opslaan. Ga terug naar " + CurrentPosition);
+            }
+            else
+            {
+                CurrentPosition += rolledDice;
+            } 
         }
         public void MoveThroughEvents(int destination)
         {
             CurrentPosition = destination;
+            
         }
         public void SkipTurn(int wait)
         {
             NeedsToSkip += wait;
+            logger.Log($"Je bent teveel afgeleid door je computer-game. Dit duurt nog {NeedsToSkip} beurten lang.");
         }
     }
 }

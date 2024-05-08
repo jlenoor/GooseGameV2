@@ -1,4 +1,5 @@
-﻿using Ganzenbord.Business.Player;
+﻿using Ganzenbord.Business.Logger;
+using Ganzenbord.Business.Player;
 
 namespace Ganzenbord.Business.Square
 {
@@ -11,8 +12,9 @@ namespace Ganzenbord.Business.Square
 
         public int SkipTurns { get; }
 
-        public void HandlePlayer(IPlayer player)
+        public void HandlePlayer(IPlayer player, ILogging Logger)
         {
+            Logger.Log($"Je hebt een 0-refference. Dit gaat even duren om op te lossen.");
             player.SkipTurn(SkipTurns);
         }
     }

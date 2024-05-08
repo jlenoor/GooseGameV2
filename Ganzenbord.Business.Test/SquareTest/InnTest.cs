@@ -1,4 +1,5 @@
 ﻿using Ganzenbord.Business.Factories;
+using Ganzenbord.Business.Logger;
 using Ganzenbord.Business.Player;
 using Ganzenbord.Business.Square;
 using System;
@@ -18,8 +19,9 @@ namespace Ganzenbord.Business.Test.SquareTest
             IPlayer player = new Player.Player("testDude");
             int waitTurns = 1;
             ISquare inN = new Inn(1);
+            ILogging logger = new Logger.Logger();
             //Act
-            inN.HandlePlayer(player);
+            inN.HandlePlayer(player, logger);
             //Assert
             Assert.That(waitTurns, Is.EqualTo(player.NeedsToSkip));
         }

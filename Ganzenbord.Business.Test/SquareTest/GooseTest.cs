@@ -1,4 +1,5 @@
-﻿using Ganzenbord.Business.Player;
+﻿using Ganzenbord.Business.Logger;
+using Ganzenbord.Business.Player;
 using Ganzenbord.Business.Square;
 
 namespace Ganzenbord.Business.Test.SquareTest
@@ -14,8 +15,9 @@ namespace Ganzenbord.Business.Test.SquareTest
             player.RolledValue = 5;
             int expectedPosition = 40;
             ISquare goose = new Goose();
+            ILogging logger = new Logger.Logger();
             //Act
-            goose.HandlePlayer(player);
+            goose.HandlePlayer(player, logger);
             //Assert
             Assert.That(expectedPosition, Is.EqualTo(player.CurrentPosition));
         }

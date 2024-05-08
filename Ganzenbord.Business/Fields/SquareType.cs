@@ -8,6 +8,7 @@
         End = 63,
         Maze = 42,
         Prison = 52,
+        Well = 31,
         Goose,
         Normal
     }

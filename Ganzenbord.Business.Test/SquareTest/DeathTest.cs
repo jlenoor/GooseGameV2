@@ -1,4 +1,5 @@
-﻿using Ganzenbord.Business.Player;
+﻿using Ganzenbord.Business.Logger;
+using Ganzenbord.Business.Player;
 using Ganzenbord.Business.Square;
 
 namespace Ganzenbord.Business.Test.SquareTest
@@ -12,8 +13,9 @@ namespace Ganzenbord.Business.Test.SquareTest
             IPlayer player = new Player.Player("testDude");
             int goTo = 1;
             ISquare death = new Death(goTo);
+            ILogging logger = new Logger.Logger();
             //Act
-            death.HandlePlayer(player);
+            death.HandlePlayer(player, logger);
             //Assert
             Assert.That(goTo, Is.EqualTo(player.CurrentPosition));
         }

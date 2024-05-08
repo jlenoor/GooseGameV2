@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ganzenbord.Logging
+namespace Ganzenbord.ConsolLogger
 {
-    public class Logging : ILogging
+    public class ConsoleLogger : ILogging
     {
         public void Log(string message)
         {
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
         }
     }
 }
