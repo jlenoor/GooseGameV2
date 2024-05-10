@@ -19,16 +19,12 @@ namespace Ganzenbord.Business.Services
                 logger.Log($"Er wordt een {roll1} en een {roll2} gerold.");
                 if (roll1 == 5 && roll2 == 4 || roll1 == 4 && roll2 == 5)
                 {
-                    logger.Log($"Je mag direct naar vakje 26.");
-                    player.RolledValue += roll1 + roll2;
-                    player.MoveThroughEvents(26);
+                    FirstRollTeleport1(player, logger, roll1, roll2);
 
                 }
                 else if (roll1 == 6 && roll2 == 3 || roll1 == 3 && roll2 == 6)
                 {
-                    logger.Log($"Je mag direct naar vakje 53.");
-                    player.RolledValue += roll1 + roll2;
-                    player.MoveThroughEvents(53);
+                    FirstRollTeleport2(player, logger, roll1, roll2);
                 }
                 else
                 {
@@ -41,10 +37,7 @@ namespace Ganzenbord.Business.Services
                 logger.Log($"Je staat op vakje {player.CurrentPosition} .");
                 if (player.NeedsToSkip > 0)
                 {
-
-                    logger.Log($"Je bent nog even de tijd uit het oog verloren. Dit voor nog {player.NeedsToSkip} beurten.");
-                    player.NeedsToSkip--;
-                    player.ImmuneToSkip = true;
+                    WhenNeedsToSkip(player, logger);
                 }
                 else if (player.IsStuck)
                 {
@@ -52,11 +45,7 @@ namespace Ganzenbord.Business.Services
                 }
                 else
                 {
-
-                    player.GoingBackwards = false;
-                    player.RolledValue = dice.RollDice(2);
-                    logger.Log($"Er wordt een {player.RolledValue} gerold.");
-                    player.Move(player.RolledValue);
+                    WhenNormalMove(dice, player, logger);
                 }
             }
             HandleSquare(player, GameBoard, logger);
@@ -64,13 +53,42 @@ namespace Ganzenbord.Business.Services
             logger.WaitOnEnterInput();
         }
 
-        public void HandleSquare(IPlayer player, ISquare[] GameBoard, ILogging logger) //deze moet kijken voor een link te maken tussen speler positie en de squares
+        private static void WhenNormalMove(IDiceService dice, IPlayer player, ILogging logger)
+        {
+            player.GoingBackwards = false;
+            player.RolledValue = dice.RollDice(2);
+            logger.Log($"Er wordt een {player.RolledValue} gerold.");
+            player.Move(player.RolledValue);
+        }
+
+        private static void WhenNeedsToSkip(IPlayer player, ILogging logger)
+        {
+            logger.Log($"Je bent nog even de tijd uit het oog verloren. Dit voor nog {player.NeedsToSkip} beurten.");
+            player.NeedsToSkip--;
+            player.ImmuneToSkip = true;
+        }
+
+        private static void FirstRollTeleport2(IPlayer player, ILogging logger, int roll1, int roll2)
+        {
+            logger.Log($"Je mag direct naar vakje 53.");
+            player.RolledValue += roll1 + roll2;
+            player.MoveThroughEvents(53);
+        }
+
+        private static void FirstRollTeleport1(IPlayer player, ILogging logger, int roll1, int roll2)
+        {
+            logger.Log($"Je mag direct naar vakje 26.");
+            player.RolledValue += roll1 + roll2;
+            player.MoveThroughEvents(26);
+        }
+
+        public void HandleSquare(IPlayer player, ISquare[] GameBoard, ILogging logger)
         {
             logger.Log($"Je komt op vakje {player.CurrentPosition} terecht.");
-            GameBoard[player.CurrentPosition].HandlePlayer(player, logger);//voer uw vakje uit
+            GameBoard[player.CurrentPosition].HandlePlayer(player, logger);
             while (player.ComesFromGoose)
             {
-                GameBoard[player.CurrentPosition].HandlePlayer(player, logger); //voer uw vakje uit
+                GameBoard[player.CurrentPosition].HandlePlayer(player, logger);
             }
         }
     }

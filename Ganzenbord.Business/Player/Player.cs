@@ -1,6 +1,4 @@
-﻿using Ganzenbord.Business.Services;
-using System.Numerics;
-using Ganzenbord.Business.Logger;
+﻿using Ganzenbord.Business.Logger;
 
 namespace Ganzenbord.Business.Player
 {
@@ -12,7 +10,7 @@ namespace Ganzenbord.Business.Player
             Name = name;
             CurrentPosition = 0;
 
-            PlayerNames = ["Abdul"]; //, "Bart", "Bernd", "Cedric", "Gilles", "Illya", "Jeffrey", "Robin", "Tycho"];
+            PlayerNames = ["Abdul", "Bart", "Bernd", "Cedric", "Gilles", "Illya", "Jeffrey", "Robin", "Tycho"];
         }
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
@@ -36,25 +34,36 @@ namespace Ganzenbord.Business.Player
             RolledValue = rolledDice;
             if (GoingBackwards)
             {
-                CurrentPosition -= RolledValue; //59-11 = 48 //60-10 = 50
-                logger.Log("Bij het knippen en plakken ging er iets verkeerd.");
+                IfPlayerGoesBack();
             }
             else if (CurrentPosition + rolledDice > 63)
             {
-                GoingBackwards = true;
-                int rest =(CurrentPosition + rolledDice) - 63;
-                CurrentPosition = 63 - rest;
-                logger.Log("Je dacht dat je bijna klaar was, maar bent vergeten opslaan. Ga terug naar " + CurrentPosition);
+                IfPlayerMovesToFar(rolledDice);
             }
             else
             {
                 CurrentPosition += rolledDice;
             }
         }
+
+        private void IfPlayerGoesBack()
+        {
+            CurrentPosition -= RolledValue;
+            logger.Log("Bij het knippen en plakken ging er iets verkeerd.");
+        }
+
+        private void IfPlayerMovesToFar(int rolledDice)
+        {
+            GoingBackwards = true;
+            int rest = (CurrentPosition + rolledDice) - 63;
+            CurrentPosition = 63 - rest;
+            logger.Log("Je dacht dat je bijna klaar was, maar bent vergeten opslaan. Ga terug naar " + CurrentPosition);
+        }
+
         public void MoveThroughEvents(int destination)
         {
             CurrentPosition = destination;
-            
+
         }
         public void SkipTurn(int wait)
         {
