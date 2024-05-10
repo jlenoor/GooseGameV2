@@ -2,6 +2,7 @@
 {
     public enum SquareType
     {
+        Start = 0,
         Bridge = 6,
         Inn = 19,
         Death = 58,

@@ -12,9 +12,13 @@ namespace Ganzenbord.Business.Square
         public int GoTo { get; }
 
         public void HandlePlayer(IPlayer player, ILogging Logger)
-        {   
+        {
+            player.ComesFromGoose = false;
             Logger.Log("Jouw GitHub doet weer raar. Alles is weg. Begin opnieuw.");
-            player.MoveThroughEvents(1);   
+            player.FirstTurn = true;
+            player.GoingBackwards = false;
+            player.RolledValue = 0;
+            player.MoveThroughEvents(0);   
         }
     }
 }

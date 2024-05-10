@@ -8,7 +8,7 @@
 
             int result = 0;
 
-            for (int i = 0; amountDice <= i; i++)
+            for (int i = 0; amountDice > i; i++)
             {
                 result += random.Next(1, 7);
             }

@@ -10,20 +10,21 @@ namespace Ganzenbord.Business.Player
         public Player(string name)
         {
             Name = name;
-            CurrentPosition = 1;
+            CurrentPosition = 0;
 
-            PlayerNames = ["Abdul", "Bart", "Bernd", "Cedric", "Gilles", "Illya", "Jeffrey", "Robin", "Tycho"];
+            PlayerNames = ["Abdul"]; //, "Bart", "Bernd", "Cedric", "Gilles", "Illya", "Jeffrey", "Robin", "Tycho"];
         }
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
-        public int RolledValue { get; set; }
-        public int NeedsToSkip { get; set; }
+        public int RolledValue { get; set; } = 0;
+        public int NeedsToSkip { get; set; } = 0;
         public bool FirstTurn { get; set; } = true;
-        public bool IsStuck { get; set; }
+        public bool IsStuck { get; set; } = false;
         public bool IsWinner { get; set; } = false;
         public string[] PlayerNames { get; set; }
-        public bool GoingBackwards { get; set; }
-
+        public bool GoingBackwards { get; set; } = false;
+        public bool ImmuneToSkip { get; set; } = false;
+        public bool ComesFromGoose { get; set; } = false;
 
         public void Move(int rolledDice, int currentPosition)
         {
@@ -35,22 +36,20 @@ namespace Ganzenbord.Business.Player
             RolledValue = rolledDice;
             if (GoingBackwards)
             {
-                int rest = (CurrentPosition + rolledDice); //60 rollen 12 //60 rollen 8
-                rest -= 63; //9 //5
-                CurrentPosition -= rest*2; //60-18 = 42 //60-10 = 50
-                logger.Log("Bij het knippen en plakken ging er iets verkeerd. ");
+                CurrentPosition -= RolledValue; //59-11 = 48 //60-10 = 50
+                logger.Log("Bij het knippen en plakken ging er iets verkeerd.");
             }
-            if (CurrentPosition + rolledDice > 63)
+            else if (CurrentPosition + rolledDice > 63)
             {
                 GoingBackwards = true;
                 int rest =(CurrentPosition + rolledDice) - 63;
-                CurrentPosition -= rest;
+                CurrentPosition = 63 - rest;
                 logger.Log("Je dacht dat je bijna klaar was, maar bent vergeten opslaan. Ga terug naar " + CurrentPosition);
             }
             else
             {
                 CurrentPosition += rolledDice;
-            } 
+            }
         }
         public void MoveThroughEvents(int destination)
         {
@@ -60,7 +59,7 @@ namespace Ganzenbord.Business.Player
         public void SkipTurn(int wait)
         {
             NeedsToSkip += wait;
-            logger.Log($"Je bent teveel afgeleid door je computer-game. Dit duurt nog {NeedsToSkip} beurten lang.");
+            logger.Log($"Je bent nog steeds bezig. Dit duurt nog {NeedsToSkip} beurten lang.");
         }
     }
 }

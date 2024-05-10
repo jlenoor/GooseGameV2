@@ -12,9 +12,12 @@ namespace Ganzenbord.Business.Square
         public int SkipTurns { get; set; }
         public void HandlePlayer(IPlayer player, ILogging Logger)
         {
-            Logger.Log($"Je gaat vlug een beurtje computer-spelletjes spelen.");
-            player.SkipTurn(SkipTurns);
-           
+            if (!player.ImmuneToSkip)
+            {
+                player.ComesFromGoose = false;
+                Logger.Log($"Je gaat vlug een beurtje computer-spelletjes spelen.");
+                player.SkipTurn(SkipTurns);
+            }
         }
     }
 }

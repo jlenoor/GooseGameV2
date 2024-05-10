@@ -6,6 +6,7 @@ namespace Ganzenbord.Business
 {
     public interface IGame
     {
+        int GameTurn { get; set;  }
         void CreatePlayers(List<IPlayer> playerList);
         void CreateSquares(ISquareFactory SquareFactory, ISquare[] GameBoard);
         void StartGame();

@@ -9,8 +9,8 @@ namespace Ganzenbord.Business.Square
         {
             if (player.CurrentPosition != 53 || player.CurrentPosition != 26 || player.FirstTurn == false)
             {
-              
-                Logger.Log($"Je werkt rustig verder, ga naar vakje {player.CurrentPosition}.");
+                player.ComesFromGoose = false;
+                Logger.Log($"Je werkt rustig verder, hier gebeurt er niets.");
             }           
         }
     }

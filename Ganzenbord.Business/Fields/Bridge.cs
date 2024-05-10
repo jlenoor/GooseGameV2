@@ -11,7 +11,8 @@ namespace Ganzenbord.Business.Square
         public int Destination { get; set; }
 
         public void HandlePlayer(IPlayer player, ILogging Logger)
-        {   
+        {
+            player.ComesFromGoose = false;
             player.MoveThroughEvents(Destination);
             Logger.Log("Je komt op een 'tab-tab'. Je gaat naar " + Destination);
         }

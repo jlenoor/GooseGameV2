@@ -12,8 +12,8 @@ namespace Ganzenbord.Business.Test.SquareTest
             //Arrange
             IPlayer player = new Player.Player("testDude");
             player.CurrentPosition = 30;
-            player.RolledValue = 5;
-            int expectedPosition = 40;
+            player.RolledValue = 6;
+            int expectedPosition = 36;
             ISquare goose = new Goose();
             ILogging logger = new Logger.Logger();
             //Act

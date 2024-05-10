@@ -14,7 +14,8 @@ namespace Ganzenbord.Business.Square
 
         public void HandlePlayer(IPlayer player, ILogging Logger)
         {
-            Logger.Log($"Je moet je project opnieuw clonen, er ging iets mis.");
+            player.ComesFromGoose = false;
+            Logger.Log($"Maar je moet je project opnieuw clonen, en natuurlijk ging er iets mis. Ga terug naar 39.");
             player.MoveThroughEvents(GoTo);
         }
     }

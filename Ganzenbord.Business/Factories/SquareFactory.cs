@@ -10,6 +10,8 @@ namespace Ganzenbord.Business.Factories
         {
             switch (fieldNumber)
             {
+                case 0:
+                    return new Start();
                 case 6:
                     return new Bridge(12);
                 case 19:

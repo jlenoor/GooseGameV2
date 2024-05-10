@@ -18,13 +18,14 @@ namespace Ganzenbord.Business.Fields
         {
             if (IsEmpty)
             {
+                player.ComesFromGoose = false;
                 IsEmpty = false;
                 PlayerInPut[0] = player;
                 player.IsStuck = true;
                 Logger.Log($"Profficiat, je behaalde een unieke error! Tijd om dit te break-pointen.");
             }
-            else
-            {
+            else if (PlayerInPut[0].Name != player.Name) {
+                player.ComesFromGoose = false;
                 Logger.Log($"Op het moment dat {PlayerInPut[0].Name} zijn probleem heeft gefixed, krijg jij ook een unieke error. Tijd om dit te break-pointen.");
                 PlayerInPut[0].IsStuck = false;
                 Array.Clear(PlayerInPut);

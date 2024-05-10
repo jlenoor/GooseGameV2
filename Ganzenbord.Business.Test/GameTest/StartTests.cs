@@ -3,6 +3,7 @@ using Ganzenbord.Business.Factories;
 using Ganzenbord.Business.Factories.Interfaces;
 using Ganzenbord.Business.Player;
 using Ganzenbord.Business.Square;
+using Ganzenbord.Business.Fields;
 using Moq;
 using Ganzenbord.Business.Services;
 
@@ -16,8 +17,8 @@ namespace Ganzenbord.Business.Test.GameTest
         {
             //Arrange
             ILogging logging = new Logger.Logger();
-            ISquare expectedSquare = new Normal();
-            ISquare[] GameBoard = new ISquare[63];
+            ISquare expectedSquare = new Start();
+            ISquare[] GameBoard = new ISquare[64];
             ISquareFactory squareFactory = new SquareFactory();
             IPlayerFactory playerFactory = new PlayerFactory();
             Mock <IPlayer> player = new Mock <IPlayer>();

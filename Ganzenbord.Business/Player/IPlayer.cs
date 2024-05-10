@@ -11,6 +11,9 @@
         string[] PlayerNames { get; set; }
         bool FirstTurn { get; set; }
         bool GoingBackwards { get; set; }
+        bool ImmuneToSkip { get; set; }
+        bool ComesFromGoose { get; set; }
+
         void Move(int rolledDice);
         void Move(int rolledDice, int currentPosition);
         void MoveThroughEvents(int destination);

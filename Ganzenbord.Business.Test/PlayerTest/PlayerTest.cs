@@ -16,7 +16,7 @@ namespace Ganzenbord.Business.Test.PlayerTest
         {
             //Arrange
             int currentPosition = 0;
-            int rolledValue = 2;
+            int rolledValue = 3;
             int expectedPosition = 3;
 
             IPlayer playerUnderTest = new Player.Player("testName");

@@ -11,7 +11,7 @@ namespace Ganzenbord.Business.Test.SquareTest
         {
             //Arrange
             IPlayer player = new Player.Player("testDude");
-            int goTo = 1;
+            int goTo = 0;
             ISquare death = new Death(goTo);
             ILogging logger = new Logger.Logger();
             //Act
