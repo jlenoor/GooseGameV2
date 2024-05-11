@@ -1,12 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Ganzenbord;
-using Ganzenbord.Business;
-using Ganzenbord.Business.Logger;
-using Ganzenbord.Business.Services;
-using Ganzenbord.Business.Factories.Interfaces;
+﻿using Ganzenbord.Business;
 using Ganzenbord.Business.Factories;
+using Ganzenbord.Business.Factories.Interfaces;
 using Ganzenbord.Business.Player;
-using Ganzenbord.ConsolLogger;
+using Ganzenbord.Business.Services;
 
 
 Ganzenbord.Business.Logger.ILogging Logger = new Ganzenbord.Business.Logger.Logger();
